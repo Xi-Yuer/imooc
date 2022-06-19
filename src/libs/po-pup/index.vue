@@ -5,7 +5,7 @@
       <!-- 蒙版 -->
       <transition name="fade">
         <div
-          class="w-screen h-screen bg-zinc-900/80 z-40 fixed top-0 left-0"
+          class="w-screen h-screen bg-zinc-900/80 dark:bg-zinc-900 z-40 fixed top-0 left-0 border dark:border-zinc-700"
           v-if="isVisable"
           @click="isVisable = false"
         ></div>
@@ -14,7 +14,7 @@
       <transition name="popup-down-up">
         <div
           v-bind="$attrs"
-          class="w-screen bg-white z-50 fixed bottom-0"
+          class="w-screen bg-white dark:bg-zinc-800 z-50 fixed bottom-0"
           v-if="isVisable"
         >
           <slot></slot>

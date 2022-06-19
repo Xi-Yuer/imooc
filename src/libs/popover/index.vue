@@ -13,7 +13,7 @@
           ref="popoverRef"
           v-show="isVisble"
           :style="popoverStyle"
-          class="absolute p-1 z-20 bg-white border rounded-md"
+          class="absolute p-1 z-20 bg-white dark:bg-zinc-800 border rounded-md"
         >
           <!-- 匿名插槽：弹层的内容 -->
           <slot></slot>

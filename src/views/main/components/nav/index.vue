@@ -1,20 +1,21 @@
 <!--  -->
 <template>
   <template v-if="isMobileTerminal">
-    <MobileNav :category="category" />
+    <MobileNav />
   </template>
   <template v-else>
-    <PcNav :category="category" />
+    <PcNav />
   </template>
 </template>
 
 <script setup>
+import { useCategoryStore } from '@/store'
 // 方法
 import { isMobileTerminal } from '@/utils/isMobileTerminal'
 // 组件
 import MobileNav from './mobile/index.vue'
 import PcNav from './pc/index.vue'
-// 数据
-import { category } from '@/mock'
+const categoryStore = useCategoryStore()
+categoryStore.setCategory('初始化分类数据')
 </script>
 <style scoped></style>

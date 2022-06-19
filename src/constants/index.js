@@ -1,5 +1,5 @@
 // 指定pc设备的宽度
-export const PC_DEVICE_WIDTH = 720
+export const PC_DEVICE_WIDTH = 1280
 
 export const BASE_URL = ''
 

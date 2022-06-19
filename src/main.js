@@ -1,15 +1,17 @@
 import { createApp } from 'vue'
+import { createPinia } from 'pinia'
+
 import App from './App.vue'
-import './styles/index.scss'
 import router from '@/router'
+import mLibs from '@/libs'
+import './styles/index.scss'
+import 'virtual:svg-icons-register' // 注册 svg-icon (虚拟注册)
+
+
+const pinia = createPinia()
 
 import { useRem } from '@/utils/isMobileTerminal'
-// html的font-size
-useRem()
-
-// 注册 svg-icon (虚拟注册)
-import 'virtual:svg-icons-register'
-
-import mLibs from '@/libs'
-
-createApp(App).use(router).use(mLibs).mount('#app')
+import ThemeFn from '@/utils/theme/index'
+useRem() // html的font-size
+ThemeFn() // 主题
+createApp(App).use(pinia).use(router).use(mLibs).mount('#app')

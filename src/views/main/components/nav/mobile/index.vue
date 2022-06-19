@@ -1,19 +1,19 @@
 <!--  -->
 <template>
-  <div class="bg-white sticky top-0 left-0 z-10">
+  <div class="bg-white dark:bg-zinc-800 sticky top-0 left-0 z-10">
     <ul
       ref="ulRef"
-      class="relative flex overflow-x-auto p-1 text-xs text-zinc-600 overflow-hidden"
+      class="relative flex overflow-x-auto p-1 text-xs text-zinc-800 dark:text-zinc-200 overflow-hidden bgwhite dark:bg-zinc-800 duration-300"
     >
       <!-- 滑块 -->
       <li
         ref="sliderTarget"
         :style="sliderStyle"
-        class="absolute h-[22px] bg-zinc-900 rounded-lg duration-200"
+        class="absolute h-[22px] bg-zinc-900 rounded-lg duration-200 dark:bg-zinc-800"
       ></li>
       <!-- 汉堡按钮 -->
       <li
-        class="fixed top-0 right-[-1px] h-4 px-1 flex items-center bg-white z-20 shadow-l-white"
+        class="fixed top-0 right-[-1px] h-4 px-1 flex items-center bg-white dark:bg-zinc-800 z-20 shadow-l-white dark:shadow-zinc-800 duration-200"
         @click="onShowPopup"
       >
         <SvgIcon name="hamburger" class="w-1.5 h-1.5" />
@@ -33,23 +33,19 @@
     <po-pup v-model="isVisable">
       <Menu :category="category" @onItemClick="onItemClick" />
     </po-pup>
-    <div>{{ ulScrollLeft }}</div>
   </div>
 </template>
 
 <script setup>
 import SvgIcon from '@/libs/svg-icon/index.vue'
 import { useScroll } from '@vueuse/core'
+import { useCategoryStore } from '@/store'
 import { onBeforeUpdate, ref, watch } from 'vue'
 import Menu from '../../menu/index.vue'
-undefined
-undefined
-defineProps({
-  category: {
-    type: Array,
-    required: true,
-  },
-})
+
+const categoryStore = useCategoryStore()
+const category = ref(categoryStore.category)
+
 // 获取所有的 item 元素
 let itemRefs = []
 const setItemRef = el => {

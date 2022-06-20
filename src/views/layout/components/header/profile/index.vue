@@ -9,6 +9,7 @@
           <!-- 头像 -->
           <!-- 随机头像图片地址 -->
           <img
+            v-lazy
             class="w-3 h-3 rounded-sm"
             src="https://picsum.photos/300/300?random=1"
             alt=""
@@ -47,28 +48,28 @@
 </template>
 
 <script setup>
-import Popover from "@/libs/popover/index.vue";
-import SvgIcon from "@/libs/svg-icon/index.vue";
+import Popover from '@/libs/popover/index.vue'
+import SvgIcon from '@/libs/svg-icon/index.vue'
 
 const menuArr = [
   {
     id: 0,
-    name: "我的资料",
-    icon: "profile",
-    path: "/profile",
+    name: '我的资料',
+    icon: 'profile',
+    path: '/profile',
   },
   {
     id: 1,
-    name: "升级 VIP",
-    icon: "vip-profile",
-    path: "/memeber",
+    name: '升级 VIP',
+    icon: 'vip-profile',
+    path: '/memeber',
   },
   {
     id: 2,
-    name: "退出登录",
-    icon: "logout",
-    path: "",
+    name: '退出登录',
+    icon: 'logout',
+    path: '',
   },
-];
+]
 </script>
 <style scoped></style>

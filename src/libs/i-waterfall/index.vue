@@ -30,7 +30,7 @@
 </template>
 
 <script setup>
-import { onMounted, ref, computed, watch, nextTick, onUnmounted } from "vue";
+import { onMounted, ref, computed, watch, nextTick, onUnmounted } from 'vue'
 import {
   getImgElement,
   getAllImg,
@@ -38,7 +38,7 @@ import {
   getMinHeightColumn,
   getMinHeight,
   getMaxHeight,
-} from "./utils";
+} from './utils'
 const props = defineProps({
   // 数据源
   data: {
@@ -48,7 +48,7 @@ const props = defineProps({
   // 唯一标识
   nodeKey: {
     type: String,
-    default: "id",
+    default: 'id',
   },
   // 列数
   column: {
@@ -70,23 +70,51 @@ const props = defineProps({
     type: Boolean,
     default: true,
   },
-});
+})
+
+// 重新构建瀑布流
+const reset = () => {
+  setTimeout(() => {
+    useColumnWidth()
+    // 重置定位数据
+    props.data.forEach(item => {
+      item._style = {
+        left: 0,
+        top: 0,
+      }
+    })
+  }, 200)
+}
+// 监听列数的变化
+watch(
+  () => props.column,
+  val => {
+    if (props.picturePreReading) {
+      colunmWidth.value = 0
+      reset()
+    } else {
+      reset()
+    }
+    // colunmWidth.value = 0
+    // reset()
+  }
+)
 // 总容器高度 = 最高的一列的高度
-const containerHeight = ref(0);
+const containerHeight = ref(0)
 // 记录每列高度的容器 key 所在列 value:列高
-const columnHeightObj = ref({});
+const columnHeightObj = ref({})
 // 构建每列高度的对象
 const useColumnHeightObj = () => {
-  columnHeightObj.value = {};
+  columnHeightObj.value = {}
   for (let i = 0; i < props.column; i++) {
-    columnHeightObj.value[i] = 0;
+    columnHeightObj.value[i] = 0
   }
-};
+}
 // 容器的宽度(不包含 padding margin border)
-const containerTarget = ref(null);
-const containerWidth = ref(0);
+const containerTarget = ref(null)
+const containerWidth = ref(0)
 // 容器的左边距 计算 item 的 left
-const containerLeft = ref(0);
+const containerLeft = ref(0)
 
 // 计算容器宽度
 const useContainerWidth = () => {
@@ -94,139 +122,139 @@ const useContainerWidth = () => {
   const { paddingLeft, paddingRight } = getComputedStyle(
     containerTarget.value,
     null
-  );
+  )
   // console.log(paddingLeft, paddingRight) // 0px 0px
   // 容器的左边距
-  containerLeft.value = parseFloat(paddingLeft);
+  containerLeft.value = parseFloat(paddingLeft)
   // 容器的宽度
   containerWidth.value =
     containerTarget.value.offsetWidth -
     parseFloat(paddingLeft) -
-    parseFloat(paddingRight);
-};
+    parseFloat(paddingRight)
+}
 // 列宽 = 容器宽度 - 所有列间距宽度 / 列数
-const colunmWidth = ref(0);
+const colunmWidth = ref(0)
 // 列间距的合计
 const columnSpacingTotal = computed(() => {
-  return (props.column - 1) * props.columnSpacing;
-});
+  return (props.column - 1) * props.columnSpacing
+})
 // 计算列宽
 const useColumnWidth = () => {
   // 计算容器宽度
-  useContainerWidth();
+  useContainerWidth()
   // 计算列宽
   colunmWidth.value =
-    (containerWidth.value - columnSpacingTotal.value) / props.column;
-};
+    (containerWidth.value - columnSpacingTotal.value) / props.column
+}
 onMounted(() => {
   // 计算列宽
-  useColumnWidth();
-});
+  useColumnWidth()
+})
 
 // 图片预加载
-let itemHeights = [];
+let itemHeights = []
 // 监听图片加载完毕
 const waitImgComplate = () => {
-  itemHeights = [];
+  itemHeights = []
   // 获取所有元素
-  let itemElements = [...document.getElementsByClassName("m-waterfall-item")];
+  let itemElements = [...document.getElementsByClassName('m-waterfall-item')]
   // 获取到元素的 img 标签
-  const imgElements = getImgElement(itemElements);
+  const imgElements = getImgElement(itemElements)
   // 获取所有 img 标签的图片
-  const allImgs = getAllImg(imgElements);
+  const allImgs = getAllImg(imgElements)
   // 等待图片加载完毕
   onComplateImgs(allImgs).then(() => {
     // 图片加载完成
-    itemElements.forEach((el) => {
-      itemHeights.push(el.offsetHeight);
-    });
+    itemElements.forEach(el => {
+      itemHeights.push(el.offsetHeight)
+    })
     // 渲染位置
-    useItemLocation();
-  });
-};
+    useItemLocation()
+  })
+}
 
 // 不需要图片预加载
 const useItemHeight = () => {
-  itemHeights = [];
+  itemHeights = []
   // 获取所有元素
-  let itemElements = [...document.getElementsByClassName("m-waterfall-item")];
+  let itemElements = [...document.getElementsByClassName('m-waterfall-item')]
   // 计算 item 的高度
-  itemElements.forEach((el) => {
-    itemHeights.push(el.offsetHeight);
-  });
+  itemElements.forEach(el => {
+    itemHeights.push(el.offsetHeight)
+  })
   // 渲染位置
-  useItemLocation();
-};
+  useItemLocation()
+}
 // 渲染位置
 const useItemLocation = () => {
   props.data.forEach((item, index) => {
     // 避免重复计算
     if (item._style) {
-      return;
+      return
     }
     // 生成 style 属性
     item._style = {
       left: getItemLeft(),
       top: getItemTop(),
-    };
+    }
     // 指定高度自增
-    increasingHeight(index);
-  });
+    increasingHeight(index)
+  })
   // 指定容器的高度
-  containerHeight.value = getMaxHeight(columnHeightObj.value);
-};
+  containerHeight.value = getMaxHeight(columnHeightObj.value)
+}
 
 // 在组件销毁时清除所有的 style
 onUnmounted(() => {
-  props.data.forEach((item) => {
-    delete item._style;
-  });
-});
+  props.data.forEach(item => {
+    delete item._style
+  })
+})
 
 // 返回下一个 item 的 left
 const getItemLeft = () => {
   // 拿到最小宽度的列
-  const column = getMinHeightColumn(columnHeightObj.value);
+  const column = getMinHeightColumn(columnHeightObj.value)
   return (
     column * (colunmWidth.value + props.columnSpacing) + containerLeft.value
-  );
-};
+  )
+}
 // 返回下一个 item 的 top
 const getItemTop = () => {
-  return getMinHeight(columnHeightObj.value);
-};
+  return getMinHeight(columnHeightObj.value)
+}
 
 // 指定高度自增
-const increasingHeight = (index) => {
+const increasingHeight = index => {
   // 拿到最小高度所在的列
-  const miniHeightColumn = getMinHeightColumn(columnHeightObj.value);
+  const miniHeightColumn = getMinHeightColumn(columnHeightObj.value)
   // 使该列自增
   columnHeightObj.value[miniHeightColumn] +=
-    itemHeights[index] + props.rowSpacing;
-};
+    itemHeights[index] + props.rowSpacing
+}
 
 // 触发计算
 watch(
   () => props.data,
-  (newValue) => {
+  newValue => {
     nextTick(() => {
       // 第一次获取数据时构建高度记录容器
-      const resetColumnHeight = newValue.every((item) => !item._style);
+      const resetColumnHeight = newValue.every(item => !item._style)
       if (resetColumnHeight) {
         // 重新构建高度
-        useColumnHeightObj();
+        useColumnHeightObj()
       }
       if (props.picturePreReading) {
-        waitImgComplate();
+        waitImgComplate()
       } else {
-        useItemHeight();
+        useItemHeight()
       }
-    });
+    })
   },
   {
     deep: true,
     immediate: true,
   }
-);
+)
 </script>
 <style scoped></style>

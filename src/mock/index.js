@@ -1,7 +1,4 @@
-import { category } from './category';
-import { list } from './list'
+import { category } from "./category";
+import { list } from "./list";
 
-export {
-    category,
-    list
-}
+export { category, list };

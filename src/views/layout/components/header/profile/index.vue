@@ -37,7 +37,9 @@
             class="w-1.5 h-1.5 mr-1"
             fillClass="fill-zinc-900 dark:fill-zinc-300"
           ></svg-icon>
-          <span class="text-zinc-900 text-sm dark:text-zinc-300">{{ item.name }}</span>
+          <span class="text-zinc-900 text-sm dark:text-zinc-300">{{
+            item.name
+          }}</span>
         </div>
       </div>
     </popover>
@@ -45,28 +47,28 @@
 </template>
 
 <script setup>
-import Popover from '@/libs/popover/index.vue'
-import SvgIcon from '@/libs/svg-icon/index.vue'
+import Popover from "@/libs/popover/index.vue";
+import SvgIcon from "@/libs/svg-icon/index.vue";
 
 const menuArr = [
   {
     id: 0,
-    name: '我的资料',
-    icon: 'profile',
-    path: '/profile',
+    name: "我的资料",
+    icon: "profile",
+    path: "/profile",
   },
   {
     id: 1,
-    name: '升级 VIP',
-    icon: 'vip-profile',
-    path: '/memeber',
+    name: "升级 VIP",
+    icon: "vip-profile",
+    path: "/memeber",
   },
   {
     id: 2,
-    name: '退出登录',
-    icon: 'logout',
-    path: '',
+    name: "退出登录",
+    icon: "logout",
+    path: "",
   },
-]
+];
 </script>
 <style scoped></style>

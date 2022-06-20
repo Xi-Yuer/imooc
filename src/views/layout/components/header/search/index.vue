@@ -8,9 +8,9 @@
 </template>
 
 <script setup>
-import Search from '@/libs/search/index.vue'
-import { ref, watch } from 'vue'
+import Search from "@/libs/search/index.vue";
+import { ref, watch } from "vue";
 
-const inputValue = ref('')
+const inputValue = ref("");
 </script>
 <style scoped></style>

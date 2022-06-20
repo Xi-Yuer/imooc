@@ -37,59 +37,59 @@
 </template>
 
 <script setup>
-import SvgIcon from '@/libs/svg-icon/index.vue'
-import { useScroll } from '@vueuse/core'
-import { useCategoryStore } from '@/store'
-import { onBeforeUpdate, ref, watch } from 'vue'
-import Menu from '../../menu/index.vue'
+import SvgIcon from "@/libs/svg-icon/index.vue";
+import { useScroll } from "@vueuse/core";
+import { useCategoryStore } from "@/store";
+import { onBeforeUpdate, ref, watch } from "vue";
+import Menu from "../../menu/index.vue";
 
-const categoryStore = useCategoryStore()
-const category = ref(categoryStore.category)
+const categoryStore = useCategoryStore();
+const category = ref(categoryStore.category);
 
 // 获取所有的 item 元素
-let itemRefs = []
-const setItemRef = el => {
+let itemRefs = [];
+const setItemRef = (el) => {
   if (el) {
-    itemRefs.push(el)
+    itemRefs.push(el);
   }
-}
+};
 // 获取 ul 元素
-const ulRef = ref(null)
+const ulRef = ref(null);
 // 通过 vueuse 提供的 useScroll 获取响应式的滚动距离
 const { x: ulScrollLeft } = useScroll(ulRef, {
   horizontal: true,
   debounce: 100,
-})
+});
 // 获取选中 item 的 index
-const currentIndex = ref(0)
+const currentIndex = ref(0);
 // 滑块样式
 const sliderStyle = ref({
   transform: `translateX(${currentIndex.value}px)`,
-  width: '52px',
-})
-watch(currentIndex, value => {
-  const { left, width } = itemRefs[value].getBoundingClientRect()
+  width: "52px",
+});
+watch(currentIndex, (value) => {
+  const { left, width } = itemRefs[value].getBoundingClientRect();
   sliderStyle.value = {
     transform: `translateX(${ulScrollLeft.value + left - 10}px)`,
     width: `${width}px`,
-  }
-})
+  };
+});
 
 onBeforeUpdate(() => {
   // 当数据变化时，重置 itemRefs
-  itemRefs = []
-})
+  itemRefs = [];
+});
 
 // 点击事件
-const onItemClick = index => {
-  currentIndex.value = index
-  isVisable.value = false
-}
+const onItemClick = (index) => {
+  currentIndex.value = index;
+  isVisable.value = false;
+};
 
 // 弹窗组件是否显示
-const isVisable = ref(false)
+const isVisable = ref(false);
 const onShowPopup = () => {
-  isVisable.value = true
-}
+  isVisable.value = true;
+};
 </script>
 <style scoped></style>

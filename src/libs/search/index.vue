@@ -43,7 +43,7 @@
       <div
         v-if="$slots.dropdown"
         v-show="isFocus"
-        class="max-h-[368px] w-full text-base overflow-auto bg-white dark:bg-zinc-800 absolute z-20 left-0 top-[56px] p-2 rounded border border-zinc-200 dark:border-zinc-700 duration-200 hover:shadow-lg"
+        class="max-h-[368px] w-full text-base overflow-auto bg-white dark:bg-zinc-800 absolute z-20 left-0 top-[56px] p-2 rounded border border-zinc-200 dark:border-zinc-700 duration-300 hover:shadow-lg"
       >
         <slot name="dropdown"></slot>
       </div>
@@ -58,60 +58,60 @@
 // 触发搜索
 // 控制下拉展示区域的展示
 // 事件处理
-import { useVModel } from '@vueuse/core'
-import { ref, watch } from 'vue'
-import { onClickOutside } from '@vueuse/core' // 判断指定 DOM 之外的点击事件
+import { useVModel } from "@vueuse/core";
+import { ref, watch } from "vue";
+import { onClickOutside } from "@vueuse/core"; // 判断指定 DOM 之外的点击事件
 
 const emits = defineEmits([
-  'update:modelValue',
-  'search',
-  'clear',
-  'input',
-  'focus',
-  'blur',
-])
+  "update:modelValue",
+  "search",
+  "clear",
+  "input",
+  "focus",
+  "blur",
+]);
 const props = defineProps({
   // 双向绑定
   modelValue: {
     type: String,
     required: true,
   },
-})
+});
 
-const inputValue = useVModel(props)
-const containerRef = ref(null)
-const isFocus = ref(false) // input 是否获取到了焦点
+const inputValue = useVModel(props);
+const containerRef = ref(null);
+const isFocus = ref(false); // input 是否获取到了焦点
 
 // 点击区域外隐藏 dropdown
 onClickOutside(containerRef, () => {
   // 当触发了DOM 节点之外的点击事件之后，执行的回调
-  isFocus.value = false
-})
+  isFocus.value = false;
+});
 
 // 监听用户输入行为
-watch(inputValue, val => {
-  emits('input', val)
-})
+watch(inputValue, (val) => {
+  emits("input", val);
+});
 
 // 清空
 const onClickClear = () => {
-  inputValue.value = ''
-  emits('clear')
-}
+  inputValue.value = "";
+  emits("clear");
+};
 // 搜索
 const onSearchHandler = () => {
-  emits('search', inputValue.value)
-}
+  emits("search", inputValue.value);
+};
 // 获取焦点
 const onFocusHandler = () => {
-  isFocus.value = true
-  emits('focus')
-}
+  isFocus.value = true;
+  emits("focus");
+};
 // 失去焦点
 const onBlurHandler = () => {
-  isFocus.value = false
-  emits('blur')
-}
+  isFocus.value = false;
+  emits("blur");
+};
 </script>
 <style scoped>
 .slide-enter-active,
@@ -121,6 +121,6 @@ const onBlurHandler = () => {
 .slder-enter-from,
 .slider-leave-to {
   opacity: 0;
-  transform: translateY(40px);
+  height: 0;
 }
 </style>

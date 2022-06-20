@@ -9,7 +9,7 @@
 </template>
 
 <script setup>
-import Nav from './components/nav/index.vue'
-import List from './components/list/index.vue'
+import Nav from "./components/nav/index.vue";
+import List from "./components/list/index.vue";
 </script>
 <style scoped></style>

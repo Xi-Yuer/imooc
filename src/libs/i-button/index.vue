@@ -31,35 +31,36 @@
 </template>
 
 <script>
-import { computed } from 'vue'
+import { computed } from "vue";
 
 //type 可选项：表示按钮风格
 const typeEnum = {
-  primary: 'text-white bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 dark:hover:bg-zinc-700 active:bg-zinc-800 dark:active:bg-zinc-700',
-  main: 'text-white bg-main dark:bg-zinc-900 hover:bg-hover-main dark:hover:bg-hover-main active:bg-main dark:active:bg-hover-main',
-  info: 'text-zinc-800 dark:text-zinc-300 bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 active:bg-zinc-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-700',
-}
+  primary:
+    "text-white bg-zinc-800 dark:bg-zinc-900 hover:bg-zinc-900 dark:hover:bg-zinc-700 active:bg-zinc-800 dark:active:bg-zinc-700",
+  main: "text-white bg-main dark:bg-zinc-900 hover:bg-hover-main dark:hover:bg-hover-main active:bg-main dark:active:bg-hover-main",
+  info: "text-zinc-800 dark:text-zinc-300 bg-zinc-200 dark:bg-zinc-700 hover:bg-zinc-300 active:bg-zinc-200 dark:hover:bg-zinc-600 dark:active:bg-zinc-700",
+};
 const sizeEnum = {
   // 文字按钮
   default: {
-    button: 'w-8 h-4 text-base',
-    icon: '',
+    button: "w-8 h-4 text-base",
+    icon: "",
   },
   //icon按钮
-  'icon-default': {
-    button: 'w-4 h-4',
-    icon: 'w-1.5 h-1.5',
+  "icon-default": {
+    button: "w-4 h-4",
+    icon: "w-1.5 h-1.5",
   },
   //   文字按钮
   small: {
-    button: 'w-7 h-3 text-base',
-    icon: '',
+    button: "w-7 h-3 text-base",
+    icon: "",
   },
-  'icon-small': {
-    button: 'w-3 h-3',
-    icon: 'w-1.5 h-1.5',
+  "icon-small": {
+    button: "w-3 h-3",
+    icon: "w-1.5 h-1.5",
   },
-}
+};
 </script>
 <script setup>
 // 构建 type size 风格选项
@@ -80,7 +81,7 @@ const props = defineProps({
   // 按钮风格
   type: {
     type: String,
-    default: 'main',
+    default: "main",
     // validator(value) {
     //   // 当开发者指定的风格不在枚举中时，提示开发者
     //   const result = Object.keys(typeEnum).includes(value)
@@ -92,7 +93,7 @@ const props = defineProps({
   // 按钮大小风格
   size: {
     type: String,
-    default: 'default',
+    default: "default",
     // validator(value) {
     //   const keys = Object.keys(sizeEnum).filter(key => !key.includes('icon'))
     //   const result = keys.includes(value)
@@ -111,17 +112,17 @@ const props = defineProps({
     type: Boolean,
     default: false,
   },
-})
+});
 // props.size
 const sizeKey = computed(() => {
-  return props.icon ? 'icon-' + props.size : props.size
-})
+  return props.icon ? "icon-" + props.size : props.size;
+});
 
 // 事件传递
-const emits = defineEmits(['click'])
+const emits = defineEmits(["click"]);
 const onBtnClick = () => {
-  if(props.loading) return
-  emits('click')
-}
+  if (props.loading) return;
+  emits("click");
+};
 </script>
 <style scoped></style>

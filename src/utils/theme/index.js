@@ -5,7 +5,9 @@ import { useThemeStore } from '@/store'
 let matchMedia
 const watchThemeChange = () => {
   // 仅需一次初始化
-  if (matchMedia) return
+  if (matchMedia) {
+    return
+  }
   matchMedia = window.matchMedia('(prefers-color-scheme: dark)')
   matchMedia.onchange = () => {
     changeTheme('system')
@@ -21,12 +23,11 @@ const changeTheme = val => {
       themeClassName = 'dark'
       break
     case 'system':
-        // 调用方法，监听系统主题变化
-      watchThemeChange()
+      watchThemeChange() // 调用方法，监听系统主题变化
       themeClassName = matchMedia.mathches ? 'dark' : 'light'
       break
     default:
-      'light'
+      themeClassName = 'dark'
   }
   document.querySelector('html').className = themeClassName
   window.localStorage.setItem('theme', themeClassName)

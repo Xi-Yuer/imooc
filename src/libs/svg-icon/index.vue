@@ -6,7 +6,7 @@
 </template>
 
 <script setup>
-import { computed } from 'vue'
+import { computed } from "vue";
 
 const props = defineProps({
   // 显示的svg
@@ -22,8 +22,8 @@ const props = defineProps({
   fillClass: {
     type: String,
   },
-})
+});
 // 真实显示的 svg 图标（拼接 #icon-）
-const symbolId = computed(() => `#icon-${props.name}`)
+const symbolId = computed(() => `#icon-${props.name}`);
 </script>
 <style scoped></style>

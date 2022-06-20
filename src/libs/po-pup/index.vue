@@ -25,29 +25,29 @@
 </template>
 
 <script setup>
-import { useScrollLock, useVModel } from '@vueuse/core'
-import { watch } from 'vue'
+import { useScrollLock, useVModel } from "@vueuse/core";
+import { watch } from "vue";
 
 const props = defineProps({
   modelValue: {
     type: Boolean,
     required: true,
   },
-})
-defineEmits(['update:modelValue'])
+});
+defineEmits(["update:modelValue"]);
 // 返回一个响应式数据，当他的值发生修改时，会自动触发 emits 修改 modelValue
-const isVisable = useVModel(props)
+const isVisable = useVModel(props);
 
 // 锁定滚动条
-const isLocked = useScrollLock(document.body)
+const isLocked = useScrollLock(document.body);
 // 当显示弹窗时，锁定滚动条
 watch(
   isVisable,
-  val => {
-    isLocked.value = val
+  (val) => {
+    isLocked.value = val;
   },
   { immediate: true }
-)
+);
 </script>
 <style scoped>
 .fade-enter-active,

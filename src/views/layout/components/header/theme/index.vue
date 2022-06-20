@@ -26,7 +26,9 @@
             class="w-1.5 h-1.5 mr-1"
             fillClass="fill-zinc-900 dark:fill-zinc-300"
           ></SvgIcon>
-          <span class="text-zinc-900 text-sm dark:text-zinc-300">{{item.name}}</span>
+          <span class="text-zinc-900 text-sm dark:text-zinc-300">{{
+            item.name
+          }}</span>
         </div>
       </div>
     </Popover>
@@ -34,45 +36,44 @@
 </template>
 
 <script setup>
-import { useThemeStore } from '@/store'
-import { THEME_DARK, THEME_LIGHT, THEME_SYSTEM } from '@/constants'
-import Popover from '@/libs/popover/index.vue'
-import SvgIcon from '@/libs/svg-icon/index.vue'
-import { computed } from 'vue';
+import { useThemeStore } from "@/store";
+import { THEME_DARK, THEME_LIGHT, THEME_SYSTEM } from "@/constants";
+import Popover from "@/libs/popover/index.vue";
+import SvgIcon from "@/libs/svg-icon/index.vue";
+import { computed } from "vue";
 
-const themeStore = useThemeStore()
+const themeStore = useThemeStore();
 
 const themeArr = [
   {
-    id: '0',
+    id: "0",
     type: THEME_LIGHT,
-    icon: 'theme-light',
-    name: '极简白',
+    icon: "theme-light",
+    name: "极简白",
   },
   {
-    id: '1',
+    id: "1",
     type: THEME_DARK,
-    icon: 'theme-dark',
-    name: '极简黑',
+    icon: "theme-dark",
+    name: "极简黑",
   },
   {
-    id: '2',
+    id: "2",
     type: THEME_SYSTEM,
-    icon: 'theme-system',
-    name: '跟随系统',
+    icon: "theme-system",
+    name: "跟随系统",
   },
-]
+];
 // 主题切换
-const onThemeClick = item => {
-  themeStore.setTheme(item.type)
-}
+const onThemeClick = (item) => {
+  themeStore.setTheme(item.type);
+};
 
 const svgIconName = computed(() => {
-  const findTheme = themeArr.find(item => {
-    return item.type === themeStore.getTheme
-  })
-  return findTheme ? findTheme.icon : 'theme-light'
-})
-
+  const findTheme = themeArr.find((item) => {
+    return item.type === themeStore.getTheme;
+  });
+  return findTheme ? findTheme.icon : "theme-light";
+});
 </script>
 <style scoped></style>

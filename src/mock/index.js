@@ -1,4 +1,5 @@
-import { category } from "./category";
-import { list } from "./list";
+import { category } from './category'
+import { list } from './list'
+import { recommend } from './recommend'
 
-export { category, list };
+export { category, list, recommend }

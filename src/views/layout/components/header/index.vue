@@ -8,7 +8,7 @@
         v-lazy
         src="https://m.imooc.com/static/wap/static/common/img/logo-small@2x.png"
         alt=""
-        class="h-4 cursor-pointer mr-2"
+        class="guide-home h-4 cursor-pointer mr-2"
         @click="onToHome"
       />
       <Search class="mr-1" />

@@ -23,10 +23,10 @@
       <li
         v-for="(item, index) in category"
         :key="item.id"
-        @click="onItemClick(index)"
+        @click="onItemClick(item, index)"
         class="shrink-0 px-1.5 py-0 z-10 duration-200 text-zinc-900 dark:text-zinc-500 font-bold h-4 leading-4 cursor-pointer hover:bg-zinc-200 dark:hover:bg-zinc-900 rounded mr-1 mb-1"
         :class="[
-          curruntCateegoryIndex === index
+          curruntCategoryIndex === index
             ? 'text-zinc-900 bg-zinc-200 dark:text-zinc-900 dark:bg-zinc-800'
             : '',
         ]"
@@ -38,21 +38,25 @@
 </template>
 
 <script setup>
-import { ref } from "vue";
-import { useCategoryStore } from "@/store";
-const categoryStore = useCategoryStore();
-const category = ref(categoryStore.getCategory);
+import { computed, ref } from 'vue'
+import { useAppStore, useCategoryStore } from '@/store'
 
-const isFolded = ref(false);
+const categoryStore = useCategoryStore()
+const appStore = useAppStore()
+
+const category = computed(() => categoryStore.getCategory)
+// 选中状态
+const curruntCategoryIndex = computed(() => appStore.getCurrentCategoryIndex)
+
+const isFolded = ref(false)
 // 展开/收起
 const trigerFold = () => {
-  isFolded.value = !isFolded.value;
-};
-// 选中状态
-const curruntCateegoryIndex = ref(0);
+  isFolded.value = !isFolded.value
+}
 
-const onItemClick = (index) => {
-  curruntCateegoryIndex.value = index;
-};
+const onItemClick = (item, index) => {
+  appStore.setCurrentCategory(item)
+  appStore.setCurrentCategoryIndex(index)
+}
 </script>
 <style scoped></style>

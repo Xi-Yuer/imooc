@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div>
+  <div class="guide-theme">
     <Popover placement="bottom-right">
       <!-- 具名插槽 -->
       <template #reference>

@@ -32,6 +32,7 @@
 
 <script>
 import { computed } from "vue";
+import SvgIcon from '@/libs/svg-icon/index.vue'
 
 //type 可选项：表示按钮风格
 const typeEnum = {

@@ -1,3 +1,14 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+::-webkit-scrollbar-thumb{
+    border-radius: 10px;
+}
+
+.driver-fix-stacking{
+    position: relative;
+}
+.driver-close-btn {
+    margin-top: 27.5px;
+}

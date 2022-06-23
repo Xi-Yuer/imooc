@@ -23,9 +23,9 @@
       </div>
     </template>
     <!-- 加载中 -->
-    <template v-else>
-      <span class="w-full h-full bg-zinc-600/50">加载中....</span>
-    </template>
+    <!-- <template v-if="data.length">
+      <span class="w-full h-full bg-zinc-600/50">暂无更多</span>
+    </template> -->
   </div>
 </template>
 
@@ -95,8 +95,6 @@ watch(
     } else {
       reset()
     }
-    // colunmWidth.value = 0
-    // reset()
   }
 )
 // 总容器高度 = 最高的一列的高度

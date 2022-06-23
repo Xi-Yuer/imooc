@@ -9,7 +9,7 @@
         v-for="(item, index) in category"
         :key="item.id"
         class="text-sm text-zinc-900 px-1 py-1.5 duration-100 active:bg-zinc-100 dark:text-zinc-300 dark:active:bg-zinc-900"
-        @click="$emit('onItemClick', index)"
+        @click="onItemClick(item, index)"
       >
         {{ item.name }}
       </li>
@@ -18,12 +18,15 @@
 </template>
 
 <script setup>
-defineEmits(["onItemClick"]);
+const emit = defineEmits(['onMenuItemClick'])
 defineProps({
   category: {
     type: Array,
     required: true,
   },
-});
+})
+const onItemClick = (item, index) => {
+  emit('onMenuItemClick', [item,index])
+}
 </script>
 <style scoped></style>

@@ -46,7 +46,7 @@ const targetIsInterscting = ref(false)
 const loadingTarget = ref(null)
 useIntersectionObserver(loadingTarget, ([isIntersecting]) => {
   targetIsInterscting.value = isIntersecting
-  emitLoad(isIntersecting)
+  emitLoad()
 })
 
 const emitLoad = () => {

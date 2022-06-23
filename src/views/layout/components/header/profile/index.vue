@@ -5,12 +5,13 @@
       <template #reference>
         <div
           class="relative flex items-center p-0.5 rounded-sm cursor-pointer duration-200 outline-none hover:bg-zinc-100 dark:hover:bg-zinc-900"
+          v-if="false"
         >
           <!-- 头像 -->
           <!-- 随机头像图片地址 -->
           <img
             v-lazy
-            class="w-3 h-3 rounded-sm"
+            class="w-3 h-3 rounded-sm guide-account"
             src="https://picsum.photos/300/300?random=1"
             alt=""
           />
@@ -25,9 +26,17 @@
             fillClass="fill-zinc-900"
           ></SvgIcon>
         </div>
+        <div v-else>
+          <i-button
+            class="guide-account"
+            icon="profile"
+            iconColor="#ffffff"
+            @click="onToLogin"
+          ></i-button>
+        </div>
       </template>
       <!-- 气泡 -->
-      <div class="w-[140px] overflow-hidden">
+      <div class="w-[140px] overflow-hidden" v-if="false">
         <div
           class="flex items-center p-1 cursor-pointer rounded-lg hover:bg-zinc-100/60 dark:hover:bg-zinc-600"
           v-for="item in menuArr"
@@ -50,6 +59,8 @@
 <script setup>
 import Popover from '@/libs/popover/index.vue'
 import SvgIcon from '@/libs/svg-icon/index.vue'
+import { useRouter } from 'vue-router'
+const router = useRouter()
 
 const menuArr = [
   {
@@ -71,5 +82,10 @@ const menuArr = [
     path: '',
   },
 ]
+
+// 登录按钮碘酒事件
+const onToLogin = () => {
+  router.push('/login')
+}
 </script>
 <style scoped></style>

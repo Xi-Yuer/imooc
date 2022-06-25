@@ -87,7 +87,7 @@ const beforeEnter = el => {
 const enter = (el, done) => {
   gsap.to(el, {
     opacity: 1,
-    duration: 0.5,
+    duration: 0.3,
     opacity: 1,
     scaleX: 1,
     scaleY: 1,
@@ -98,7 +98,7 @@ const enter = (el, done) => {
 }
 const leave = (el, done) => {
   gsap.to(el, {
-    duration: 0.5,
+    duration: 0.3,
     opacity: 0,
     scaleX: 0,
     scaleY: 0,

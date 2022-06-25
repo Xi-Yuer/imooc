@@ -1,3 +1,4 @@
+<!--  -->
 <template>
   <div
     class="relative h-screen bg-white dark:bg-zinc-800 text-center xl:bg-zinc-200"
@@ -31,10 +32,10 @@
       <h3
         class="hidden mb-2 font-semibold text-base text-main dark:text-zinc-300 xl:block"
       >
-        账号登录
+        账号注册
       </h3>
       <!-- 登录表单 -->
-      <VeeForm @submit="onLoginHandler">
+      <VeeForm @submit="onRegisterHandler">
         <VeeField
           type="text"
           class="dark:bg-zinc-800 dark:text-zinc-400 border-b-zinc-400 border-0 w-full border-b outline-none pb-1 px-1 text-base focus:border-b-main dark:focus:border-zinc-200 xl:dark:bg-zinc-900 xl:m-auto xl:mt-8 xl:rounded-sm xl:default:bg-zinc-900"
@@ -57,63 +58,77 @@
           :rules="validatePassword"
           v-model="password"
         />
+        <VeeField
+          type="password"
+          class="dark:bg-zinc-800 dark:text-zinc-400 border-b-zinc-400 border-0 border-b w-full outline-0 pb-1 px-1 text-base focus:border-b-main dark:focus:border-zinc-200 xl:dark:bg-zinc-900 xl:m-auto xl:mt-8 xl:rounded-sm xl:default:bg-zinc-900"
+          name="confirmPassword"
+          placeholder="确定密码"
+          autocomplete="on"
+          rules="validateConfirmPassword:@password"
+          v-model="confirmPassword"
+        />
         <error-message
           class="text-sm text-red-600 block text-left"
-          name="password"
+          name="confirmPassword"
         />
         <div class="pt-1 pb-3 leading-[0px] text-right">
           <span
             class="inline-block p-1 text-zinc-400 text-right dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400 text-sm duration-300 cursor-pointer"
-            @click="onToRegisterHandler">
-            去注册
+            @click="onToLoginHandler"
+          >
+            去登录
           </span>
+        </div>
+        <!-- 注册协议 -->
+        <div class="text-center">
+          <a
+            href="https://m.imooc.com/newfaq?id=89"
+            class="text-zinc-400 dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400 text-sm duration-300"
+            target="_blank"
+            >注册即同意《慕课网注册协议》</a
+          >
         </div>
         <!-- 登录 -->
         <i-button class="w-full dark:bg-zinc-900 xl:dark:bg-zinc-800">
-          登录
+          立即注册
         </i-button>
-        <!-- 第三方登录按钮 -->
-        <div class="flex justify-around mt-4">
-          <!-- QQ -->
-          <svg-icon name="qq" class="w-4 cursor-pointer"></svg-icon>
-          <!-- wechat -->
-          <svg-icon name="wexin" class="w-4 cursor-pointer"></svg-icon>
-        </div>
       </VeeForm>
     </div>
-    <SliderCaptcha @onSuccess="onSuccess" @onClose="onClose" v-if="isShow" />
   </div>
 </template>
 
 <script setup>
-import { Form as VeeForm, Field as VeeField, ErrorMessage } from 'vee-validate'
-import { validateUserName, validatePassword } from './utils/valid'
-import SliderCaptcha from './components/slider-captcha/index.vue'
+import {
+  Form as VeeForm,
+  Field as VeeField,
+  ErrorMessage,
+  defineRule,
+} from 'vee-validate'
+import {
+  validateUserName,
+  validatePassword,
+  validateConfirmPassword,
+} from '../login/utils/valid'
 
 import { useUserStore } from '@/store'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
+import { message } from '@/libs/i-message'
 const userStore = useUserStore()
 const router = useRouter()
 
-const isShow = ref(false)
+// 注册规则
+defineRule('validateConfirmPassword', validateConfirmPassword)
+
 const username = ref('')
 const password = ref('')
-// 登录
-const onLoginHandler = () => {
-  isShow.value = true
-}
-const onSuccess = () => {
-  isShow.value = false
-  userStore.login({ username: username.value, password: password.value })
-  router.push('/')
-}
+const confirmPassword = ref('')
 
-const onToRegisterHandler = () => {
-  router.push('/register')
+const onToLoginHandler = () => {
+  router.push('/login')
 }
-const onClose = () => {
-  isShow.value = false
+const onRegisterHandler = () => {
+  userStore.register(username.value, password.value)
 }
 </script>
 <style scoped></style>

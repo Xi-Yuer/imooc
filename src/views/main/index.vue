@@ -1,6 +1,6 @@
 <!--  -->
 <template>
-  <div class="h-full overflow-auto bg-white dark:bg-zinc-800 duration-200 ">
+  <div class="overflow-auto bg-white dark:bg-zinc-800 duration-200 ">
     <Nav />
     <div class="max-w-xl mx-auto relative m-1 xl:mt-4">
       <List />

@@ -5,7 +5,7 @@
       <template #reference>
         <div
           class="relative flex items-center p-0.5 rounded-sm cursor-pointer duration-200 outline-none hover:bg-zinc-100 dark:hover:bg-zinc-900"
-          v-if="false"
+          v-if="userStore.userInfo"
         >
           <!-- 头像 -->
           <!-- 随机头像图片地址 -->
@@ -24,6 +24,7 @@
             class="h-1.5 w-1.5 ml-0.5 absolute right-[16px] bottom-0"
             name="vip"
             fillClass="fill-zinc-900"
+            v-if="userStore.userInfo.vipLevel"
           ></SvgIcon>
         </div>
         <div v-else>
@@ -36,11 +37,12 @@
         </div>
       </template>
       <!-- 气泡 -->
-      <div class="w-[140px] overflow-hidden" v-if="false">
+      <div class="w-[140px] overflow-hidden" v-if="userStore.userInfo">
         <div
           class="flex items-center p-1 cursor-pointer rounded-lg hover:bg-zinc-100/60 dark:hover:bg-zinc-600"
           v-for="item in menuArr"
           :key="item.id"
+          @click="onItemClick(item)"
         >
           <svg-icon
             :name="item.icon"
@@ -57,10 +59,14 @@
 </template>
 
 <script setup>
+import { confirm } from '@/libs/i-confirm'
+import { message } from '@/libs/i-message'
 import Popover from '@/libs/popover/index.vue'
 import SvgIcon from '@/libs/svg-icon/index.vue'
+import { useUserStore } from '@/store'
 import { useRouter } from 'vue-router'
 const router = useRouter()
+const userStore = useUserStore()
 
 const menuArr = [
   {
@@ -83,9 +89,22 @@ const menuArr = [
   },
 ]
 
-// 登录按钮碘酒事件
+// 登录按钮事件
 const onToLogin = () => {
   router.push('/login')
+}
+// 退出登录
+const onItemClick = item => {
+  if (item.id === 2) {
+    confirm('确定退出登录吗？').then(() => {
+      userStore.logout()
+    })
+    return
+  }
+  if (item.id === 0) {
+    router.push(item.path)
+    return
+  }
 }
 </script>
 <style scoped></style>

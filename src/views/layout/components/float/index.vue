@@ -66,8 +66,4 @@ const onDriver = () => {
 }
 </script>
 <style scoped>
-.driver-fix-stacking{
-  position: fixed;
-  z-index: 99999999;
-}
 </style>

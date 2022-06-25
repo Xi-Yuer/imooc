@@ -12,13 +12,10 @@ import 'virtual:svg-icons-register' // 注册 svg-icon (虚拟注册)
 const pinia = createPinia()
 pinia.use(piniaPersist)
 
+const app = createApp(App)
+
 import { useRem } from '@/utils/isMobileTerminal'
 import ThemeFn from '@/utils/theme/index'
 useRem() // html的font-size
 ThemeFn() // 主题
-createApp(App)
-  .use(pinia)
-  .use(iDrectives)
-  .use(router)
-  .use(mLibs)
-  .mount('#app')
+app.use(router).use(iDrectives).use(mLibs).use(pinia).mount('#app')

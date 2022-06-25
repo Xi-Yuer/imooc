@@ -13,7 +13,7 @@
         ref="popoverRef"
         v-show="isVisble"
         :style="popoverStyle"
-        class="absolute z-20 p-1 bg-white dark:bg-zinc-800 border dark:border-zinc-500 rounded-md"
+        class="absolute z-20 p-1 bg-white dark:bg-zinc-800 border dark:border-zinc-500 rounded-md empty:hidden"
       >
         <!-- 匿名插槽：弹层的内容 -->
         <slot />
@@ -140,16 +140,14 @@ const onMounseLeave = () => {
 }
 </script>
 <style scoped>
-.slide-enter-active {
-  transition: opacity 0.3s;
-}
-
+.slide-enter-active,
 .slide-leave-active {
-  transition: opacity 0.3s;
+  transition: all 0.3s;
 }
 
 .slide-enter-from,
 .slide-leave-to {
   opacity: 0;
+  transform: translateY(-10px);
 }
 </style>

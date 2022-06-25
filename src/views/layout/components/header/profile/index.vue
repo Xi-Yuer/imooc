@@ -24,7 +24,6 @@
             class="h-1.5 w-1.5 ml-0.5 absolute right-[16px] bottom-0"
             name="vip"
             fillClass="fill-zinc-900"
-            v-if="userStore.userInfo.vipLevel"
           ></SvgIcon>
         </div>
         <div v-else>

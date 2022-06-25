@@ -23,9 +23,10 @@ import Search from "./search/index.vue";
 import Theme from "./theme/index.vue";
 import Profile from "./profile/index.vue";
 import { useRouter } from "vue-router";
+const router = useRouter();
 
 const onToHome = () => {
-  useRouter().push("/");
+  router.push("/"); 
 };
 </script>
 <style scoped></style>

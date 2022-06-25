@@ -14,6 +14,7 @@
       class="border-grar-200 dark:border-zinc-600 dark:bg-zinc-800 duration-400 dark:text-zinc-400 border outline-none py-0.5 px-1 text-sm rounded focus:border-blue-400 w-full"
       v-if="type === TYPE_TEXTAREA"
       rows="5"
+      v-model="text"
       :maxlength="maxlength"
     ></textarea>
     <!-- 错误提示 -->

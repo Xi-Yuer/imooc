@@ -4,6 +4,7 @@
     <i-navbar
       title="个人资料"
       @leftClick="leftClick"
+      @rightClick="onChangeCick"
       class="text-base dark:text-zinc-300 font-bold"
     >
       <template #right>提交</template>
@@ -38,7 +39,9 @@
             class="xl:flex text-sm xl:mt-4 mt-2 xl:ml-[50px]"
             v-if="!isMobileTerminal"
           >
-            <i-button class="w-[150px]">修改资料</i-button>
+            <i-button class="w-[150px]" @click="onChangeCick"
+              >修改资料</i-button
+            >
           </div>
           <div
             class="xl:flex text-sm xl:mt-4 mt-2 xl:ml-[50px]"
@@ -58,7 +61,8 @@
             <span class="text-sm font-bold">我的头像</span>
             <div class="group relative flex w-8 h-8 mt-1 mb-1">
               <img
-                :src="userStore.userInfo.avatar"
+                v-lazy
+                src="https://picsum.photos/300/300?random=1"
                 class="rounded-full"
                 alt=""
               />
@@ -87,18 +91,24 @@
         </div>
       </div>
     </div>
+    <i-dialog title="头像裁剪" v-model="isVisibel" :isShowBtn="false">
+      <cut-off-img :blob="imgURL" @close="isVisibel = false"></cut-off-img>
+    </i-dialog>
   </div>
 </template>
-
 <script setup>
 import { useRouter } from 'vue-router'
 import { isMobileTerminal } from '@/utils/isMobileTerminal'
-import { ref } from 'vue'
+import CutOffImg from './components/cut-off-img/index.vue'
+import { ref, watch } from 'vue'
 import { useUserStore } from '@/store'
 import { confirm } from '@/libs/i-confirm'
+import { message } from '@/libs/i-message'
 const userStore = useUserStore()
 const router = useRouter()
 const inputFileRef = ref(null)
+const isVisibel = ref(false)
+const imgURL = ref('')
 
 const FormData = ref([
   {
@@ -135,12 +145,30 @@ const leftClick = () => {
   router.back()
 }
 // 选中文件
-const onSelectImgHandler = (el) => {
-    console.log(el)
+const onSelectImgHandler = () => {
+  const imgFile = inputFileRef.value.files[0]
+  // 生成 blob 对象
+  const blob = URL.createObjectURL(imgFile)
+  imgURL.value = blob
+  isVisibel.value = true
 }
+
+// 当多次选择同一张图片时，
+// inputFileRef.value.value 不会发生变化，
+// 也就不会再次触发 onSelectImgHandler 函数，
+// 所以需要在点击上传按钮时，清空 inputFileRef.value.value
+watch(isVisibel, val => {
+  if (!val) {
+    inputFileRef.value.value = null
+  }
+})
 
 const uploadAvatar = () => {
   inputFileRef.value.click()
+}
+
+const onChangeCick = () => {
+  message('success', '修改成功')
 }
 
 // 退出登录

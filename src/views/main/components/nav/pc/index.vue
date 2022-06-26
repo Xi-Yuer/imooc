@@ -40,6 +40,7 @@
 <script setup>
 import { computed, ref } from 'vue'
 import { useAppStore, useCategoryStore } from '@/store'
+import { message } from '@/libs/i-message';
 
 const categoryStore = useCategoryStore()
 const appStore = useAppStore()
@@ -55,7 +56,8 @@ const trigerFold = () => {
 }
 
 const onItemClick = (item, index) => {
-  appStore.setCurrentCategory(item)
+  // appStore.setCurrentCategory(item)
+  message('success', `选中了 ${item.name}, 数据不会更新`)
   appStore.setCurrentCategoryIndex(index)
 }
 </script>

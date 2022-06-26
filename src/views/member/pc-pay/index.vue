@@ -28,6 +28,7 @@
 </template>
 
 <script setup>
+import { message } from '@/libs/i-message';
 import discountsVue from '../components/count-down/index.vue'
 // import { alipay } from '@/utils/pay'
 
@@ -39,6 +40,7 @@ const props = defineProps({
 })
 
 const onAliPayClick = () => {
+  message('success', '个人学习项目，暂不支持支付宝支付')
   // alipay(props.payData.title, props.payData.desc)
 }
 </script>

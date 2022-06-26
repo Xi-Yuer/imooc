@@ -41,6 +41,7 @@ import { useScroll } from '@vueuse/core'
 import { useAppStore, useCategoryStore } from '@/store'
 import { computed, onBeforeUpdate, ref, watch } from 'vue'
 import Menu from '../../menu/index.vue'
+import { message } from '@/libs/i-message';
 
 const categoryStore = useCategoryStore()
 const category = computed(() => categoryStore.category)
@@ -84,13 +85,15 @@ onBeforeUpdate(() => {
 
 // 点击事件
 const onItemClick = (item, index) => {
-  useAppStore().setCurrentCategory(item)
+  // useAppStore().setCurrentCategory(item)
+  message('success', `选中了 ${item.name}, 数据不会更新`)
   useAppStore().setCurrentCategoryIndex(index)
   isVisable.value = false
 }
 
 const onMenuItemClick = ([item, index]) => {
-  useAppStore().setCurrentCategory(item)
+  // useAppStore().setCurrentCategory(item)
+  message('success', `选中了 ${item.name}, 数据不会更新`)
   useAppStore().setCurrentCategoryIndex(index)
   isVisable.value = false
 }

@@ -58,7 +58,7 @@ export const useUserStore = defineStore('user', {
     logout() {
       this.user = null
       this.userInfo = null
-      window.localStorage.removeItem('user')
+      window.localStorage.clear()
       location.reload()
       message('success', '登出成功')
     },

@@ -13,6 +13,7 @@ const router = createRouter({
 
 router.beforeEach((to, from) => {
   const userInfo = JSON.parse(window.localStorage.getItem('user') || '{}')
+  console.log(userInfo.userInfo)
   if (to.path === '/login') {
     if (userInfo.userInfo) {
       return '/'

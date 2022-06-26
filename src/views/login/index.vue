@@ -64,7 +64,8 @@
         <div class="pt-1 pb-3 leading-[0px] text-right">
           <span
             class="inline-block p-1 text-zinc-400 text-right dark:text-zinc-600 hover:text-zinc-600 dark:hover:text-zinc-400 text-sm duration-300 cursor-pointer"
-            @click="onToRegisterHandler">
+            @click="onToRegisterHandler"
+          >
             去注册
           </span>
         </div>
@@ -75,7 +76,7 @@
         <!-- 第三方登录按钮 -->
         <div class="flex justify-around mt-4">
           <!-- QQ -->
-          <svg-icon name="qq" class="w-4 cursor-pointer"></svg-icon>
+          <QqLogin />
           <!-- wechat -->
           <svg-icon name="wexin" class="w-4 cursor-pointer"></svg-icon>
         </div>
@@ -94,6 +95,7 @@ import { useUserStore } from '@/store'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import { useAppStore } from '@/store'
+import QqLogin from './components/qq-login/index.vue'
 const appStore = useAppStore()
 const userStore = useUserStore()
 const router = useRouter()

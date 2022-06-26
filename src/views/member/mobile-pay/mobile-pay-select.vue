@@ -25,6 +25,7 @@ const props = defineProps({
 })
 
 const onAlipay = () => {
+  message('success', '个人学习项目，暂不支持支付宝支付')
   // alipay(props.payData.title, props.payData.desc)
 }
 </script>

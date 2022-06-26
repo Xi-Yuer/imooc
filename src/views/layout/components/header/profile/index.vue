@@ -64,6 +64,8 @@ import Popover from '@/libs/popover/index.vue'
 import SvgIcon from '@/libs/svg-icon/index.vue'
 import { useUserStore } from '@/store'
 import { useRouter } from 'vue-router'
+import { useAppStore } from '@/store'
+const appStore = useAppStore()
 const router = useRouter()
 const userStore = useUserStore()
 
@@ -78,7 +80,7 @@ const menuArr = [
     id: 1,
     name: '升级 VIP',
     icon: 'vip-profile',
-    path: '/memeber',
+    path: '/member',
   },
   {
     id: 2,
@@ -101,6 +103,10 @@ const onItemClick = item => {
     return
   }
   if (item.id === 0) {
+    router.push(item.path)
+    return
+  }
+  if(item.id === 1) {
     router.push(item.path)
     return
   }

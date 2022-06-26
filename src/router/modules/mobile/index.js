@@ -18,9 +18,10 @@ export default [
     path: '/profile',
     name: 'profile',
     component: () => import('@/views/profile/index.vue'),
-    // 标记当前页面之后用户登录才能进入
-    meta: {
-      user: true,
-    },
+  },
+  {
+    path: '/member',
+    name: 'member',
+    component: () => import('@/views/member/index.vue'),
   },
 ]

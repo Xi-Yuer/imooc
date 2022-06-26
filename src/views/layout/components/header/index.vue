@@ -23,9 +23,12 @@ import Search from "./search/index.vue";
 import Theme from "./theme/index.vue";
 import Profile from "./profile/index.vue";
 import { useRouter } from "vue-router";
+import { useAppStore } from '@/store'
+const appStore = useAppStore()
 const router = useRouter();
 
 const onToHome = () => {
+  appStore.changeRouterType('push')
   router.push("/"); 
 };
 </script>

@@ -114,6 +114,8 @@ import { useUserStore } from '@/store'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 import { message } from '@/libs/i-message'
+import { useAppStore } from '@/store'
+const appStore = useAppStore()
 const userStore = useUserStore()
 const router = useRouter()
 
@@ -125,6 +127,7 @@ const password = ref('')
 const confirmPassword = ref('')
 
 const onToLoginHandler = () => {
+  appStore.changeRouterType('login')
   router.push('/login')
 }
 const onRegisterHandler = () => {

@@ -93,12 +93,14 @@ import SliderCaptcha from './components/slider-captcha/index.vue'
 import { useUserStore } from '@/store'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
+import { useAppStore } from '@/store'
+const appStore = useAppStore()
 const userStore = useUserStore()
 const router = useRouter()
 
 const isShow = ref(false)
-const username = ref('')
-const password = ref('')
+const username = ref('admin')
+const password = ref('123456')
 // 登录
 const onLoginHandler = () => {
   isShow.value = true
@@ -106,10 +108,12 @@ const onLoginHandler = () => {
 const onSuccess = () => {
   isShow.value = false
   userStore.login({ username: username.value, password: password.value })
+  appStore.changeRouterType('home')
   router.push('/')
 }
 
 const onToRegisterHandler = () => {
+  appStore.changeRouterType('register')
   router.push('/register')
 }
 const onClose = () => {

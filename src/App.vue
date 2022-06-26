@@ -8,5 +8,9 @@
   </div>
 </template>
 
-<script setup></script>
+<script setup>
+import TransitionRouterView from '@/libs/transition-router-view/index.vue'
+import { useAppStore } from '@/store'
+const appStore = useAppStore()
+</script>
 <style scoped></style>
